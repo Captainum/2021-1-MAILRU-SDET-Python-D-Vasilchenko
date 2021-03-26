@@ -9,5 +9,7 @@ class MainPageLocators(BasePageLocators):
     PASSWORD_LOCATOR = (By.XPATH, '//input[@class="authForm-module-inputPassword-2Atq4Q input-module-input-1xGLR8"]')
     ENTER_LOCATOR = (By.XPATH, '//div[@class="authForm-module-button-2G6lZu"]')
 
-class DashBoardLocators(BasePageLocators):
-    pass
+class DashboardPageLocators(BasePageLocators):
+    RIGHTMENUBUTTON_LOCATOR = (By.XPATH, '//div[@class="right-module-rightButton-39YRvc right-module-mail-25NVA9"]')
+    LOGOUT_LOCATOR = (By.XPATH, '//a[@class="rightMenu-module-rightMenuLink-2FYb2O" and contains(text(), "Выйти")]')
+
