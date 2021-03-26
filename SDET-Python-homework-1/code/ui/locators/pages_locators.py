@@ -11,7 +11,7 @@ class MainPageLocators(BasePageLocators):
 
 class DashboardPageLocators(BasePageLocators):
     RIGHTMENUBUTTON_LOCATOR = (By.XPATH, '//div[@class="right-module-rightButton-39YRvc right-module-mail-25NVA9"]')
-    LOGOUT_LOCATOR = (By.XPATH, '//a[@class="rightMenu-module-rightMenuLink-2FYb2O" and contains(text(), "Выйти")]')
+    LOGOUT_LOCATOR = (By.XPATH, '//li[@class="rightMenu-module-rightMenuItem-2BKs3G"]/a[contains(text(), "Выйти")]')
 
 class ContactsPageLocators(BasePageLocators):
     USERNAME_LOCATOR = (By.XPATH, '(//input[@class="input__inp js-form-element"])[1]')
