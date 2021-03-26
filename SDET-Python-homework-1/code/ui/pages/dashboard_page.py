@@ -6,7 +6,7 @@ class DashboardPage(BasePage):
 
     def logout(self):
         self.click(DashboardPageLocators.RIGHTMENUBUTTON_LOCATOR)
-        self.click(DashboardPageLocators.LOGOUT_LOCATOR, 15)
+        self.click(DashboardPageLocators.LOGOUT_LOCATOR)
 
     def changePage(self, locator):
         self.click(locator)
