@@ -3,6 +3,7 @@ from selenium import webdriver
 from ui.pages.base_page import BasePage
 from ui.pages.main_page import MainPage
 from ui.pages.dashboard_page import DashboardPage
+from ui.pages.contacts_page import ContactsPage
 
 @pytest.fixture
 def base_page(driver):
@@ -15,6 +16,10 @@ def main_page(driver, config):
 @pytest.fixture
 def dashboard_page(driver):
     return DashboardPage(driver=driver)
+
+@pytest.fixture
+def contacts_page(driver):
+    return ContactsPage(driver=driver)
 
 @pytest.fixture(scope='function')
 def driver(config):

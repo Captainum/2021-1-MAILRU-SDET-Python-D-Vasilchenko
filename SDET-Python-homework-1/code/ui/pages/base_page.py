@@ -18,4 +18,3 @@ class BasePage(object):
         element = self.find(locator, timeout=timeout)
         element = self.wait(timeout).until(EC.element_to_be_clickable(locator))
         element.click()
-        return
