@@ -29,3 +29,12 @@ class SegmentsPage(BasePage):
         segment = self.find((self.locators.SEGMENT_TITLE_LOCATOR_TEMPLATE[0],self.locators.SEGMENT_TITLE_LOCATOR_TEMPLATE[1].format(segment_name)))
 
         return segment.text
+
+    def delete_segment(self, segment_name):
+        segment_id = self.find((self.locators.SEGMENT_TITLE_LOCATOR_TEMPLATE[0], self.locators.SEGMENT_TITLE_LOCATOR_TEMPLATE[1].format(segment_name))).get_attribute("href")
+        segment_id = segment_id.split('/')[-1]
+        
+        self.click((self.locators.SEGMENT_REMOVE_LOCATOR_TEMPLATE[0], self.locators.SEGMENT_REMOVE_LOCATOR_TEMPLATE[1].format(segment_id)))
+        
+        self.click(self.locators.SEGMENT_REMOVEBUTTON_LOCATOR)
+        

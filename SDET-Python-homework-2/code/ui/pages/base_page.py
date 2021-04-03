@@ -54,7 +54,7 @@ class BasePage(object):
             #logger.info(f'Clicking on {locator}. Try {i+1} of {CLICK_RETRY}...')
             try:
                 element = self.find(locator, timeout)
-                element = self.wait(timeout).until(EC.element_to_be_clickable(locator))
+                #element = self.wait(timeout).until(EC.element_to_be_clickable(locator))
                 element.click()
                 return
             except StaleElementReferenceException:
