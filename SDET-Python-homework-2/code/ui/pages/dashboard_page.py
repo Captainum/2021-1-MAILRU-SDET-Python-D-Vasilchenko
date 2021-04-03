@@ -23,6 +23,6 @@ class DashboardPage(BasePage):
         
         return CampaignPage(self.driver, self.config)
     
-    def go_to_create_segment(self):
+    def go_to_segments_page(self):
         self.click(self.locators.SEGMENTS_LOCATOR)
         return SegmentsPage(self.driver, self.config)

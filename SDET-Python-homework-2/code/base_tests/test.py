@@ -9,6 +9,8 @@ from selenium.webdriver.common.by import By
 from base_tests.base import BaseCase
 from utils.decorators import wait
 
+from selenium.common.exceptions import TimeoutException
+
 from ui.pages.dashboard_page import DashboardPage
 from ui.pages.campaign_page import CampaignPage
 from ui.pages.segments_page import SegmentsPage
@@ -32,6 +34,18 @@ class TestDashboard(BaseCase):
         assert campaign_name.text == "TEST CAMPAIGN"
     
     def test_create_segment(self, dashboard_page: DashboardPage):
-        segments_page: SegmentsPage = dashboard_page.go_to_create_segment()
+        segments_page: SegmentsPage = dashboard_page.go_to_segments_page()
         segment_name = str(time.time())
         assert segments_page.create_segment(segment_name) == segment_name
+    
+    def test_delete_segment(self, dashboard_page: DashboardPage):
+        segments_page: SegmentsPage = dashboard_page.go_to_segments_page()
+        segment_name = segments_page.create_segment(str(time.time()))
+
+        segments_page.delete_segment(segment_name)
+
+        try:
+            segments_page.find((segments_page.locators.SEGMENT_TITLE_LOCATOR_TEMPLATE[0], segments_page.locators.SEGMENT_TITLE_LOCATOR_TEMPLATE[1].format(segment_name)))
+            assert False
+        except TimeoutException:
+            assert True
