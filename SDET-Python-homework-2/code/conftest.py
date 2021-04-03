@@ -10,7 +10,7 @@ def pytest_addoption(parser):
     parser.addoption('--debug_log', default='store_true')
     parser.addoption('--login', default='dimon201188@gmail.com')
     parser.addoption('--password', default='12345t')
-    parser.addoption('--pictures_root', default='ui')
+    parser.addoption('--pictures_root', default='pictures')
 
 @pytest.fixture(scope='session')
 def config(request):

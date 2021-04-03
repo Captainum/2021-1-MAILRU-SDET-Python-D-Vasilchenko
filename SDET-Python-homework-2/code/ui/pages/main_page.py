@@ -6,9 +6,6 @@ class MainPage(BasePage):
     
     locators = MainPageLocators()
 
-    def __init__(self, driver, config):
-        super().__init__(driver, config)
-
     def login(self, login=None, password=None):
         if login is None:
             login = self.config['login']

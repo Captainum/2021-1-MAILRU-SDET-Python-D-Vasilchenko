@@ -12,9 +12,11 @@ class MainPageLocators(BasePageLocators):
 class DashboardPageLocators(BasePageLocators):
     RIGHTMENUBUTTON_LOCATOR = (By.XPATH, '//div[starts-with(@class, "right-module-rightButton")]')
     LOGOUT_LOCATOR = (By.XPATH, '//li[starts-with(@class, "rightMenu-module-rightMenuItem")]/a[contains(text(), "Выйти")]')
-    PROFILE_LOCATOR = (By.XPATH, '//li[starts-with(@class, "center-module-button")]/a[contains(text(), "Профиль")]')
+
+    SEGMENTS_LOCATOR = (By.XPATH, '//li[starts-with(@class, "center-module-button")]/a[contains(text(), "Аудитории")]')
     BALANCE_LOCATOR = (By.XPATH, '//li[starts-with(@class, "center-module-button")]/a[contains(text(), "Баланс")]')
     STATISTICS_LOCATOR = (By.XPATH, '//li[starts-with(@class, "center-module-button")]/a[contains(text(), "Статистика")]')
+    PROFILE_LOCATOR = (By.XPATH, '//li[starts-with(@class, "center-module-button")]/a[contains(text(), "Профиль")]')
     
     CREATECAMPAIGN_HREF_LOCATOR = (By.XPATH, '//a[@href="/campaign/new"]')
     CREATECAMPAIGN_BUTTON_LOCATOR = (By.XPATH, '//div[starts-with(@class, "button-module-text") and contains(text(), "Создать кампанию")]')
@@ -48,3 +50,15 @@ class CampaignPageLocators(BasePageLocators):
 
     SAVEBUTTON_LOCATOR = (By.XPATH, '//div[contains(text(), "Сохранить объявление")]')
     CREATEBUTTON_LOCATOR = (By.XPATH, '//div[contains(text(), "Создать кампанию")]')
+
+class SegmentsPageLocators(BasePageLocators):
+    CREATESEGMENT_HREF_LOCATOR = (By.XPATH, '//a[@href="/segments/segments_list/new/"]')
+    CREATESEGMENT_BUTTON_LOCATOR = (By.XPATH, '//button[@data-class-name="Submit"]//div[contains(text(), "Создать сегмент")]')
+
+    ADDSEGMENT_CHECKBOX_LOCATOR = (By.XPATH, '//input[@type="checkbox"]')
+    ADDSEGMENT_BUTTON_LOCATOR = (By.XPATH, '//button[@data-class-name="Submit"]//div[contains(text(), "Добавить сегмент")]')
+
+    SEGMENT_NAME_LOCATOR = (By.XPATH, '//input[starts-with(@class, "input") and @maxlength="60"]')
+    CREATESEGMENT_BUTTON_LOCATOR = (By.XPATH, '//button[@data-class-name="Submit"]//div[contains(text(), "Создать сегмент")]')
+
+    SEGMENT_TITLE_LOCATOR_TEMPLATE = (By.XPATH, '//a[@title="{}"]')
