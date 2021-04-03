@@ -7,6 +7,8 @@ from selenium import webdriver
 from selenium.webdriver import ChromeOptions
 from ui.pages.base_page import BasePage
 from ui.pages.main_page import MainPage
+from ui.pages.dashboard_page import DashboardPage
+from ui.pages.campaign_page import CampaignPage
 
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
@@ -15,16 +17,17 @@ class UnsupportedBrowserType(Exception):
     pass
 
 @pytest.fixture
-def base_page(driver):
-    return BasePage(driver=driver)
+def base_page(driver, config):
+    return BasePage(driver=driver, config=config)
 
 @pytest.fixture
 def main_page(driver, config):
     return MainPage(driver=driver, config=config)
 
 @pytest.fixture
-def dashboard_page(driver):
-    return DashboardPage(driver=driver)
+def dashboard_page(driver, config, main_page):
+    main_page.login()
+    return DashboardPage(driver=driver, config=config)
 
 def get_driver(browser_name, download_dir):
     if browser_name == 'chrome':

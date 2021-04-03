@@ -23,8 +23,9 @@ class BasePage(object):
     url = 'https://target.my.com/'
     locators = BasePageLocators()
 
-    def __init__(self, driver):
+    def __init__(self, driver, config):
         self.driver = driver
+        self.config = config
         logger.info(f'{self.__class__.__name__} page is opening...')
         assert self.is_opened()
     

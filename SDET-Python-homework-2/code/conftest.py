@@ -10,6 +10,7 @@ def pytest_addoption(parser):
     parser.addoption('--debug_log', default='store_true')
     parser.addoption('--login', default='dimon201188@gmail.com')
     parser.addoption('--password', default='12345t')
+    parser.addoption('--pictures_root', default='ui')
 
 @pytest.fixture(scope='session')
 def config(request):
@@ -18,7 +19,9 @@ def config(request):
     debug_log = request.config.getoption('--debug_log')
     login = request.config.getoption('--login')
     password = request.config.getoption('--password')
-    return {'url': url, 'browser': browser, 'debug_log': debug_log, 'login': login, 'password': password}
+    pictures_root = request.config.getoption('--pictures_root')
+    return {'url': url, 'browser': browser, 'debug_log': debug_log, 'login': login, 'password': password, 
+            'pictures_root': os.path.join(os.path.abspath(os.path.join(__file__, os.pardir)), pictures_root)}
 
 @pytest.fixture(scope='function')
 def repo_root():

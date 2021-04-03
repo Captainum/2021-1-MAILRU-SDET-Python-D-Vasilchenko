@@ -2,11 +2,12 @@ from ui.pages.base_page import BasePage
 from ui.locators.pages_locators import MainPageLocators
 
 class MainPage(BasePage):
+    url = 'https://target.my.com/'
+    
     locators = MainPageLocators()
 
     def __init__(self, driver, config):
-        super().__init__(driver)
-        self.config = config
+        super().__init__(driver, config)
 
     def login(self, login=None, password=None):
         if login is None:
