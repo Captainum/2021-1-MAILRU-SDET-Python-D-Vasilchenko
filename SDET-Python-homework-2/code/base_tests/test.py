@@ -25,28 +25,13 @@ class TestLogin(BaseCase):
         pass
 
 class TestDashboard(BaseCase):
-    @pytest.mark.skip("SKIP")
     def test_create_campaign(self, dashboard_page: DashboardPage):
         campaign_page: CampaignPage = dashboard_page.go_to_create_campaign()
         campaign_page.create_campaign()
         campaign_name = dashboard_page.find((dashboard_page.locators.CAMPAIGN_LOCATOR_TEMPLATE[0], dashboard_page.locators.CAMPAIGN_LOCATOR_TEMPLATE[1].format("TEST CAMPAIGN")))
         assert campaign_name.text == "TEST CAMPAIGN"
     
-    @pytest.mark.skip("SKIP")
     def test_create_segment(self, dashboard_page: DashboardPage):
-        segments_page: SegmentsPage = dashboard_page.go_to_segment_page()
+        segments_page: SegmentsPage = dashboard_page.go_to_create_segment()
         segment_name = str(time.time())
         assert segments_page.create_segment(segment_name) == segment_name
-    
-    def test_delete_segment(self, dashboard_page: DashboardPage):
-        segments_page: SegmentsPage = dashboard_page.go_to_segment_page()
-        
-        segment_name = segments_page.create_segment(str(time.time()))
-        segments_page.delete_segment(segment_name)
-
-        try:
-            self.find((segments_page.locators.SEGMENT_TITLE_LOCATOR_TEMPLATE[0],
-                       segments_page.locators.SEGMENT_TITLE_LOCATOR_TEMPLATE[1].format(segment_name)))
-            assert False
-        except:
-            assert True

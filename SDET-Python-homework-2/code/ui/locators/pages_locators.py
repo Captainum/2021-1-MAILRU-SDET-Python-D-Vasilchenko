@@ -62,6 +62,3 @@ class SegmentsPageLocators(BasePageLocators):
     CREATESEGMENT_BUTTON_LOCATOR = (By.XPATH, '//button[@data-class-name="Submit"]//div[contains(text(), "Создать сегмент")]')
 
     SEGMENT_TITLE_LOCATOR_TEMPLATE = (By.XPATH, '//a[@title="{}"]')
-    SEGMENT_REMOVE_LOCATOR_TEMPLATE = (By.XPATH, '//div[starts-with(@data-test, "remove-{}")]//span')
-    
-    SEGMENT_REMOVEBUTTON_LOCATOR = (By.XPATH, '//button[contains(@class, "confirm-remove")]')
