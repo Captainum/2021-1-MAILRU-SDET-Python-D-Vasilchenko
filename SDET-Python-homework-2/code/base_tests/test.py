@@ -11,6 +11,7 @@ from utils.decorators import wait
 
 from selenium.common.exceptions import TimeoutException
 
+from ui.pages.main_page import MainPage
 from ui.pages.dashboard_page import DashboardPage
 from ui.pages.campaign_page import CampaignPage
 from ui.pages.segments_page import SegmentsPage
@@ -19,10 +20,17 @@ from ui.pages.segments_page import SegmentsPage
 #    time.sleep(2)
 
 class TestLogin(BaseCase):
-    def test_negative_1(self):
-        pass
-    def test_negative_2(self):
-        pass
+    def test_negative_1(self, main_page: MainPage):
+        main_page.login('login', 'password')
+        try:
+            main_page.find(main_page.locators.NOTIFY_LOCATOR)
+            assert True
+        except TimeoutException:
+            assert False
+
+    def test_negative_2(self, main_page: MainPage):
+        main_page.login('login@mail.ru', 'password')
+        assert 'error_code' in self.driver.current_url and 'error_code=0' not in self.driver.current_url
 
 class TestDashboard(BaseCase):
     def test_create_campaign(self, dashboard_page: DashboardPage):
