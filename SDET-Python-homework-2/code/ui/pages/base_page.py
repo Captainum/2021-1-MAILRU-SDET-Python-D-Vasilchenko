@@ -21,15 +21,16 @@ class PageNotLoadedException(Exception):
 
 class BasePage(object):
     url = 'https://target.my.com/'
-    locators = BasePageLocators()
+    locators = BasePageLocators()    
 
     def __init__(self, driver, config):
         self.driver = driver
         self.config = config
-        logger.info(f'{self.__class__.__name__} page is opening...')
         assert self.is_opened()
     
     def is_opened(self):
+        logger.info(f'{self.__class__.__name__} page is opening...')
+
         def _check_url():
             if self.driver.current_url != self.url:
                 raise PageNotLoadedException(
@@ -39,6 +40,8 @@ class BasePage(object):
         return wait(_check_url, error=PageNotLoadedException, check=True, timeout=BASE_TIMEOUT, interval=0.1)
 
     def find(self, locator, timeout=None):
+        logger.info(f'Looking for {locator} with timeout={timeout}')
+        
         return self.wait(timeout).until(EC.presence_of_element_located(locator))
 
     def wait(self, timeout=None):
@@ -51,7 +54,8 @@ class BasePage(object):
 
     def click(self, locator, timeout=None):
         for i in range(CLICK_RETRY):
-            #logger.info(f'Clicking on {locator}. Try {i+1} of {CLICK_RETRY}...')
+            logger.info(f'Clicking on {locator}. Try {i+1} of {CLICK_RETRY}...')
+            
             try:
                 element = self.find(locator, timeout)
                 element = self.wait(timeout).until(EC.element_to_be_clickable(locator))

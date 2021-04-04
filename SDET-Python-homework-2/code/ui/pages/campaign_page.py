@@ -1,15 +1,22 @@
+import time
+import logging
+
+import os
+import pytest
+
 from ui.pages.base_page import BasePage
 from ui.locators.pages_locators import CampaignPageLocators
 
-import time
-import os
-import pytest
+
+logger = logging.getLogger('test')
 
 class CampaignPage(BasePage):
     url = 'https://target.my.com/campaign/new'
     locators = CampaignPageLocators
 
     def create_campaign(self, campaign_name):
+        logger.info(f'Creating a campaign with name={campaign_name}...')
+        
         self.click((self.locators.GOAL_LOCATOR_TEMPLATE[0], self.locators.GOAL_LOCATOR_TEMPLATE[1].format('traffic')), 10)
 
         url_input = self.find(self.locators.URL_LOCATOR)
@@ -42,5 +49,7 @@ class CampaignPage(BasePage):
         self.click(self.locators.CREATEBUTTON_LOCATOR)
 
     def upload_picture(self, locator, picture_name):
+        logger.info(f'Uploading {picture_name} to {locator}')
+
         input_field = self.find(locator)
         input_field.send_keys(os.path.join(self.config['pictures_root'], picture_name))

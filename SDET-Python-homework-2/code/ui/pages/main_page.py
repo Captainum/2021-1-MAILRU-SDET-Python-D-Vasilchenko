@@ -1,5 +1,9 @@
+import logging
+
 from ui.pages.base_page import BasePage
 from ui.locators.pages_locators import MainPageLocators
+
+logger = logging.getLogger('test')
 
 class MainPage(BasePage):
     url = 'https://target.my.com/'
@@ -7,6 +11,8 @@ class MainPage(BasePage):
     locators = MainPageLocators()
 
     def login(self, login=None, password=None):
+        logger.info(f'Logging with login={login}, password={password}...')
+        
         if login is None:
             login = self.config['login']
         if password is None:

@@ -1,9 +1,12 @@
+import time
+import logging
+
 from ui.pages.base_page import BasePage
 from ui.locators.pages_locators import SegmentsPageLocators
 
 from selenium.common.exceptions import TimeoutException
 
-import time
+logger = logging.getLogger('test')
 
 class SegmentsPage(BasePage):
     url = 'https://target.my.com/segments/segments_list'
@@ -11,6 +14,8 @@ class SegmentsPage(BasePage):
     locators = SegmentsPageLocators()
 
     def create_segment(self, segment_name):
+        logger.info(f'Creating a segment with name={segment_name}...')
+        
         try:
             self.click(self.locators.CREATESEGMENT_HREF_LOCATOR, 2)
         except:
@@ -27,6 +32,8 @@ class SegmentsPage(BasePage):
         self.click(self.locators.CREATESEGMENT_BUTTON_LOCATOR)
 
     def delete_segment(self, segment_name):
+        logger.info(f'Deleting a segment with name={segment_name}...')
+        
         segment_title = self.find((self.locators.SEGMENT_TITLE_LOCATOR_TEMPLATE[0], self.locators.SEGMENT_TITLE_LOCATOR_TEMPLATE[1].format(segment_name))).get_attribute('href')
         segment_id = segment_title.split('/')[-1]
 

@@ -12,9 +12,6 @@ class MainPageLocators(BasePageLocators):
     NOTIFY_LOCATOR = (By.XPATH, '//div[starts-with(@class, "notify-module") and contains(text(), "Введите email или телефон")]')
 
 class DashboardPageLocators(BasePageLocators):
-    RIGHTMENUBUTTON_LOCATOR = (By.XPATH, '//div[starts-with(@class, "right-module-rightButton")]')
-    LOGOUT_LOCATOR = (By.XPATH, '//li[starts-with(@class, "rightMenu-module-rightMenuItem")]/a[contains(text(), "Выйти")]')
-
     SEGMENTS_LOCATOR = (By.XPATH, '//li[starts-with(@class, "center-module-button")]/a[contains(text(), "Аудитории")]')
     BALANCE_LOCATOR = (By.XPATH, '//li[starts-with(@class, "center-module-button")]/a[contains(text(), "Баланс")]')
     STATISTICS_LOCATOR = (By.XPATH, '//li[starts-with(@class, "center-module-button")]/a[contains(text(), "Статистика")]')

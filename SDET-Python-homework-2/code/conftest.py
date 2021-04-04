@@ -7,7 +7,7 @@ from ui.fixtures import *
 def pytest_addoption(parser):
     parser.addoption('--url', default='https://target.my.com/')
     parser.addoption('--browser', default='chrome')
-    parser.addoption('--debug_log', default='store_true')
+    parser.addoption('--debug_log', action='store_true')
     parser.addoption('--login', default='dimon201188@gmail.com')
     parser.addoption('--password', default='12345t')
     parser.addoption('--pictures_root', default='pictures')
@@ -39,19 +39,20 @@ def pytest_configure(config):
 
 @pytest.fixture(scope='function')
 def test_dir(request):
-    test_dir = os.path.join(request.config.base_test_dir, request._pyfuncitem.nodeid)
+    test_name = request._pyfuncitem.nodeid.replace('/', '_').replace(':', '_')
+    test_dir = os.path.join(request.config.base_test_dir, test_name)
     os.makedirs(test_dir)
     return test_dir
 
 @pytest.fixture(scope='function', autouse=True)
 def logger(test_dir, config):
-    log_foramtter = logging.Formatter('%(asctime)s - %(filename)-15s - %(levelname)-6s - %(message)s')
+    log_formatter = logging.Formatter('%(asctime)s - %(filename)-15s - %(levelname)-6s - %(message)s')
     log_file = os.path.join(test_dir, 'test.log')
 
     log_level = logging.DEBUG if config['debug_log'] else logging.INFO
 
     file_handler = logging.FileHandler(log_file, 'w')
-    file_handler.setFormatter(log_foramtter)
+    file_handler.setFormatter(log_formatter)
     file_handler.setLevel(log_level)
 
     log = logging.getLogger('test')
@@ -60,7 +61,7 @@ def logger(test_dir, config):
     log.addHandler(file_handler)
 
     yield log
-    
+
     for handler in log.handlers:
         handler.close()
 

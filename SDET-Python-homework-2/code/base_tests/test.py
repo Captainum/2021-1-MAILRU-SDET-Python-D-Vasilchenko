@@ -21,19 +21,30 @@ from ui.pages.segments_page import SegmentsPage
 
 class TestLogin(BaseCase):
     def test_negative_1(self, main_page: MainPage):
+        self.logger.debug('Start test_negative_1')
         main_page.login('login', 'password')
         try:
             main_page.find(main_page.locators.NOTIFY_LOCATOR)
-            assert True
+            self.logger.debug('Test done successfully!')
         except TimeoutException:
-            assert False
+            self.logger.debug('Test failed! (no notifier appeared)')
+            raise
 
     def test_negative_2(self, main_page: MainPage):
+        self.logger.debug('Start test_negative_2')
         main_page.login('login@mail.ru', 'password')
-        assert 'error_code' in self.driver.current_url and 'error_code=0' not in self.driver.current_url
+        try:
+            assert 'error_code' in self.driver.current_url and 'error_code=0' not in self.driver.current_url
+            self.logger.debug('Test done successfully!')
+        except AssertionError:
+            self.logger.debug('Test failed! (login and password were correct)')
+            raise
+            
 
 class TestDashboard(BaseCase):
+    @pytest.mark.skip("SKIP")
     def test_create_campaign(self, dashboard_page: DashboardPage):
+        self.logger.debug('Start test_create_campaign')
         campaign_page: CampaignPage = dashboard_page.go_to_create_campaign()
         campaign_name = str(time.time())
         campaign_page.create_campaign(campaign_name)
@@ -43,15 +54,28 @@ class TestDashboard(BaseCase):
         dashboard_page.click(dashboard_page.locators.SELECTMODULE_LOCATOR)
         dashboard_page.click(dashboard_page.locators.SELECT_ACTIVE_LOCATOR)
 
-        dashboard_page.find((dashboard_page.locators.CAMPAIGN_LOCATOR_TEMPLATE[0], dashboard_page.locators.CAMPAIGN_LOCATOR_TEMPLATE[1].format(campaign_name)))
+        try:
+            dashboard_page.find((dashboard_page.locators.CAMPAIGN_LOCATOR_TEMPLATE[0], dashboard_page.locators.CAMPAIGN_LOCATOR_TEMPLATE[1].format(campaign_name)))
+            self.logger.debug('Test done successfully!')
+        except TimeoutException:
+            self.logger.debug('Test failed! (campaign was not created)')
+            raise
         
     def test_create_segment(self, dashboard_page: DashboardPage):
+        self.logger.debug('Start test_create_segment')
         segments_page: SegmentsPage = dashboard_page.go_to_segments_page()
         segment_name = str(time.time())
         segments_page.create_segment(segment_name)
-        segments_page.find((segments_page.locators.SEGMENT_TITLE_LOCATOR_TEMPLATE[0], segments_page.locators.SEGMENT_TITLE_LOCATOR_TEMPLATE[1].format(segment_name)))
+        try:
+            segments_page.find((segments_page.locators.SEGMENT_TITLE_LOCATOR_TEMPLATE[0], segments_page.locators.SEGMENT_TITLE_LOCATOR_TEMPLATE[1].format(segment_name)))
+            self.logger.debug('Test done successfully!')
+        except TimeoutException:
+            self.logger.debug('Test failed! (segment was not created)')
+            raise
     
+    @pytest.mark.skip("SKIP")
     def test_delete_segment(self, dashboard_page: DashboardPage):
+        self.logger.debug('Start delete_segment')
         segments_page: SegmentsPage = dashboard_page.go_to_segments_page()
         segment_name = str(time.time())
 
@@ -66,6 +90,7 @@ class TestDashboard(BaseCase):
                 RETRY_COUNT -= 1
                 segments_page.find((segments_page.locators.SEGMENT_TITLE_LOCATOR_TEMPLATE[0], segments_page.locators.SEGMENT_TITLE_LOCATOR_TEMPLATE[1].format(segment_name)))
                 time.sleep(1)
+            self.logger.debug('Test failed! (segment was not deleted)')
             assert False
         except TimeoutException:
-            assert True
+            self.logger.debug('Test done successfully!')
