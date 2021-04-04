@@ -9,8 +9,8 @@ class CampaignPage(BasePage):
     url = 'https://target.my.com/campaign/new'
     locators = CampaignPageLocators
 
-    def create_campaign(self):
-        self.click((self.locators.GOAL_LOCATOR_TEMPLATE[0], self.locators.GOAL_LOCATOR_TEMPLATE[1].format('traffic')))
+    def create_campaign(self, campaign_name):
+        self.click((self.locators.GOAL_LOCATOR_TEMPLATE[0], self.locators.GOAL_LOCATOR_TEMPLATE[1].format('traffic')), 10)
 
         url_input = self.find(self.locators.URL_LOCATOR)
         url_input.send_keys('ya.ru')
@@ -18,7 +18,7 @@ class CampaignPage(BasePage):
 
         campaign_name_input = self.find(self.locators.CAMPAIGN_NAME_LOCATOR)
         campaign_name_input.clear()
-        campaign_name_input.send_keys('TEST CAMPAIGN')
+        campaign_name_input.send_keys(campaign_name)
 
         for number in range(1, 4):
             self.click((self.locators.SLIDENUMBER_LOCATOR_TEMPLATE[0], self.locators.SLIDENUMBER_LOCATOR_TEMPLATE[1].format(str(number))))
@@ -40,7 +40,7 @@ class CampaignPage(BasePage):
         time.sleep(5)
 
         self.click(self.locators.CREATEBUTTON_LOCATOR)
-    
+
     def upload_picture(self, locator, picture_name):
         input_field = self.find(locator)
         input_field.send_keys(os.path.join(self.config['pictures_root'], picture_name))

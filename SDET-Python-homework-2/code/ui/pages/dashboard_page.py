@@ -17,9 +17,9 @@ class DashboardPage(BasePage):
 
     def go_to_create_campaign(self):
         try:
-            self.click(self.locators.CREATECAMPAIGN_HREF_LOCATOR)
+            self.click(self.locators.CREATECAMPAIGN_HREF_LOCATOR, 3)
         except:
-            self.click(self.locators.CREATECAMPAIGN_BUTTON_LOCATOR)
+            self.click(self.locators.CREATECAMPAIGN_BUTTON_LOCATOR, 3)
         
         return CampaignPage(self.driver, self.config)
     

@@ -21,6 +21,8 @@ class DashboardPageLocators(BasePageLocators):
     CREATECAMPAIGN_HREF_LOCATOR = (By.XPATH, '//a[@href="/campaign/new"]')
     CREATECAMPAIGN_BUTTON_LOCATOR = (By.XPATH, '//div[starts-with(@class, "button-module-text") and contains(text(), "Создать кампанию")]')
 
+    SELECTMODULE_LOCATOR = (By.XPATH, '(//div[@data-test="select"])[1]')
+    SELECT_ACTIVE_LOCATOR = (By.XPATH, '//li[@title="Активные кампании"]')
     CAMPAIGN_LOCATOR_TEMPLATE = (By.XPATH, '//a[starts-with(@class, "nameCell-module-campaignNameLink") and contains(text(), "{}")]')
 
 class ContactsPageLocators(BasePageLocators):
@@ -30,7 +32,7 @@ class ContactsPageLocators(BasePageLocators):
     SAVEBUTTON_LOCATOR = (By.XPATH, '//button[@class="button button_submit"]')
 
 class CampaignPageLocators(BasePageLocators):
-    GOAL_LOCATOR_TEMPLATE = (By.XPATH, '//div[@class="column-list-item _{}"]')
+    GOAL_LOCATOR_TEMPLATE = (By.XPATH, '//div[contains(@class, "{}")]')
     URL_LOCATOR = (By.XPATH, '//input[starts-with(@class, "mainUrl-module-search") and @type="text" and @placeholder="Введите ссылку"]')
     BANNERFORMAT_LOCATOR_TEMPLATE = (By.XPATH, '//div[@class="banner-format-item"]//span[contains(text(), "{}")]')
     CAMPAIGN_NAME_LOCATOR = (By.XPATH, '(//div[contains(@class, "campaign-name")]//input[starts-with(@class, "input__inp")])[1]')
@@ -52,9 +54,11 @@ class CampaignPageLocators(BasePageLocators):
     CREATEBUTTON_LOCATOR = (By.XPATH, '//div[contains(text(), "Создать кампанию")]')
 
 class SegmentsPageLocators(BasePageLocators):
-    CREATESEGMENT_HREF_LOCATOR = (By.XPATH, '//a[@href="/segments/segments_list/new/"]')
+    # CREATESEGMENT_HREF_LOCATOR = (By.XPATH, '//a[@href="/segments/segments_list/new/"]')
+    CREATESEGMENT_HREF_LOCATOR = (By.XPATH, '//a[contains(text(), "Создайте")]')
     CREATESEGMENT_BUTTON_LOCATOR = (By.XPATH, '//button[@data-class-name="Submit"]//div[contains(text(), "Создать сегмент")]')
 
+    ADDSEGMENT_ITEM_LOCATOR = (By.XPATH, '//div[starts-with(@class, "adding-segments-item") and contains(text(), "Приложения и игры в соцсетях")]')
     ADDSEGMENT_CHECKBOX_LOCATOR = (By.XPATH, '//input[@type="checkbox"]')
     ADDSEGMENT_BUTTON_LOCATOR = (By.XPATH, '//button[@data-class-name="Submit"]//div[contains(text(), "Добавить сегмент")]')
 
