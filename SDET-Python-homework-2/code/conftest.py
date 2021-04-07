@@ -1,6 +1,6 @@
 import logging
 
-#import allure
+import allure
 
 from ui.fixtures import *
 
@@ -46,7 +46,7 @@ def test_dir(request):
 
 @pytest.fixture(scope='function', autouse=True)
 def logger(test_dir, config):
-    log_formatter = logging.Formatter('%(asctime)s - %(filename)-15s - %(levelname)-6s - %(message)s')
+    log_formatter = logging.Formatter('%(asctime)s - %(filename)-20s - %(levelname)-6s - %(message)s')
     log_file = os.path.join(test_dir, 'test.log')
 
     log_level = logging.DEBUG if config['debug_log'] else logging.INFO
@@ -58,6 +58,7 @@ def logger(test_dir, config):
     log = logging.getLogger('test')
     log.propagate = False
     log.setLevel(log_level)
+    log.handlers.clear()
     log.addHandler(file_handler)
 
     yield log
@@ -65,5 +66,5 @@ def logger(test_dir, config):
     for handler in log.handlers:
         handler.close()
 
-    #with open(log_file, 'r') as f:
-    #    allure.attach(f.read(), 'test.log', attachment_type=allure.attachment_type.TEXT)
+    with open(log_file, 'r') as f:
+       allure.attach(f.read(), 'test.log', attachment_type=allure.attachment_type.TEXT)

@@ -4,16 +4,22 @@ import logging
 import os
 import pytest
 
+import allure
+
 from ui.pages.base_page import BasePage
 from ui.locators.pages_locators import CampaignPageLocators
+
+from utils.decorators import wait
+from selenium.common.exceptions import StaleElementReferenceException
 
 
 logger = logging.getLogger('test')
 
 class CampaignPage(BasePage):
     url = 'https://target.my.com/campaign/new'
-    locators = CampaignPageLocators
+    locators = CampaignPageLocators()
 
+    @allure.step('Create a campaign')
     def create_campaign(self, campaign_name):
         logger.info(f'Creating a campaign with name={campaign_name}...')
         
@@ -44,12 +50,13 @@ class CampaignPage(BasePage):
 
         adv_text_textarea = self.find(self.locators.ADVTEXT_LOCATOR)
         adv_text_textarea.send_keys('TEST')
-        time.sleep(5)
-
+        
+        time.sleep(1)
         self.click(self.locators.CREATEBUTTON_LOCATOR)
 
+    @allure.step('Upload a picture {picture_name} to {locator}')
     def upload_picture(self, locator, picture_name):
-        logger.info(f'Uploading {picture_name} to {locator}')
+        logger.debug(f'Uploading {picture_name} to {locator}')
 
         input_field = self.find(locator)
         input_field.send_keys(os.path.join(self.config['pictures_root'], picture_name))

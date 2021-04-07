@@ -1,5 +1,6 @@
 import time
 import logging
+import allure
 
 from ui.pages.base_page import BasePage
 from ui.locators.pages_locators import SegmentsPageLocators
@@ -13,6 +14,7 @@ class SegmentsPage(BasePage):
     
     locators = SegmentsPageLocators()
 
+    @allure.step('Create a segment {segment_name}')
     def create_segment(self, segment_name):
         logger.info(f'Creating a segment with name={segment_name}...')
         
@@ -31,6 +33,7 @@ class SegmentsPage(BasePage):
 
         self.click(self.locators.CREATESEGMENT_BUTTON_LOCATOR)
 
+    @allure.step('Delete a segment {segment_name}')
     def delete_segment(self, segment_name):
         logger.info(f'Deleting a segment with name={segment_name}...')
         

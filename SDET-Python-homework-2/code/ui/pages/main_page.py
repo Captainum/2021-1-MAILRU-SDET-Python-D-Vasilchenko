@@ -1,4 +1,5 @@
 import logging
+import allure
 
 from ui.pages.base_page import BasePage
 from ui.locators.pages_locators import MainPageLocators
@@ -10,16 +11,16 @@ class MainPage(BasePage):
     
     locators = MainPageLocators()
 
+    @allure.step("Logining")
     def login(self, login=None, password=None):
-        logger.info(f'Logging with login={login}, password={password}...')
+        logger.info(f'Logining with login={login}, password={password}...')
         
         if login is None:
             login = self.config['login']
         if password is None:
             password = self.config['password']
             
-        login_button = self.find(MainPageLocators.LOGINBUTTON_LOCATOR)
-        login_button.click()
+        self.click(self.locators.LOGINBUTTON_LOCATOR)
 
         username_input = self.find(MainPageLocators.USERNAME_LOCATOR)
         password_input = self.find(MainPageLocators.PASSWORD_LOCATOR)
@@ -30,5 +31,4 @@ class MainPage(BasePage):
         username_input.send_keys(login)
         password_input.send_keys(password)
 
-        enter_button = self.find(MainPageLocators.ENTER_LOCATOR)
-        enter_button.click()
+        self.click(self.locators.ENTER_LOCATOR)

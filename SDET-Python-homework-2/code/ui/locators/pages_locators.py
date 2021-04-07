@@ -53,7 +53,6 @@ class CampaignPageLocators(BasePageLocators):
     CREATEBUTTON_LOCATOR = (By.XPATH, '//div[contains(text(), "Создать кампанию")]')
 
 class SegmentsPageLocators(BasePageLocators):
-    # CREATESEGMENT_HREF_LOCATOR = (By.XPATH, '//a[@href="/segments/segments_list/new/"]')
     CREATESEGMENT_HREF_LOCATOR = (By.XPATH, '//a[contains(text(), "Создайте")]')
     CREATESEGMENT_BUTTON_LOCATOR = (By.XPATH, '//button[@data-class-name="Submit"]//div[contains(text(), "Создать сегмент")]')
 

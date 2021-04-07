@@ -1,5 +1,6 @@
 import time
 import logging
+import allure
 
 from ui.pages.base_page import BasePage
 from ui.locators.pages_locators import DashboardPageLocators
@@ -13,6 +14,7 @@ class DashboardPage(BasePage):
     url = 'https://target.my.com/dashboard'
     locators = DashboardPageLocators()
 
+    @allure.step('Go to create campaign page')
     def go_to_create_campaign(self):
         logger.info('Go to create campaign page...')
 
@@ -23,6 +25,7 @@ class DashboardPage(BasePage):
         
         return CampaignPage(self.driver, self.config)
     
+    @allure.step('Go to segments page')
     def go_to_segments_page(self):
         logger.info('Go to segments page...')
         
