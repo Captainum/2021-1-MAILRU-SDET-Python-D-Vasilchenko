@@ -16,10 +16,9 @@ from ui.pages.dashboard_page import DashboardPage
 from ui.pages.campaign_page import CampaignPage
 from ui.pages.segments_page import SegmentsPage
 
-#def test_all_drivers(all_drivers):
-#    time.sleep(2)
 
 class TestLogin(BaseCase):
+    @pytest.mark.UI
     @allure.description("""Test with wrong email form""")
     @allure.epic('Login tests')
     @allure.feature('Test with wrong email form')
@@ -35,6 +34,7 @@ class TestLogin(BaseCase):
                 self.logger.debug('Test failed! (no notifier appeared)')
                 raise
 
+    @pytest.mark.UI
     @allure.description("""Test with wrong password""")
     @allure.epic('Login tests')
     @allure.feature('Test with wrong password')
@@ -52,6 +52,7 @@ class TestLogin(BaseCase):
             
 
 class TestDashboard(BaseCase):
+    @pytest.mark.UI
     @allure.description("""Create a new campaign, and then check if it is created or not""")
     @allure.epic('Campaign tests')
     @allure.feature('Create campaign test')
@@ -76,6 +77,7 @@ class TestDashboard(BaseCase):
                 self.logger.info('Test failed! (campaign was not created)')
                 raise
         
+    @pytest.mark.UI
     @allure.description("""Create a new segment, and then check if it is created or not""")
     @allure.epic('Segments tests')
     @allure.feature('Create segment test')
@@ -95,6 +97,7 @@ class TestDashboard(BaseCase):
                 self.logger.info('Test failed! (segment was not created)')
                 raise
     
+    @pytest.mark.UI
     @allure.description("""Create a new segment, then delete it and check if it is deleted or not""")
     @allure.epic('Segments tests')
     @allure.feature('Delete segment test')
