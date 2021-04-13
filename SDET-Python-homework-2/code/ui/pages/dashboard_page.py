@@ -31,3 +31,11 @@ class DashboardPage(BasePage):
         
         self.click(self.locators.SEGMENTS_LOCATOR)
         return SegmentsPage(self.driver, self.config)
+    
+    @allure.step('Go to active campaigns')
+    def go_to_active_campaigns(self):
+        self.driver.get('https://target.my.com/dashboard')
+        self.is_opened()
+
+        self.click(self.locators.SELECTMODULE_LOCATOR)
+        self.click(self.locators.SELECT_ACTIVE_LOCATOR)

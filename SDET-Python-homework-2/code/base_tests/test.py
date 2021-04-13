@@ -27,12 +27,7 @@ class TestLogin(BaseCase):
         main_page.login('login', 'password')
 
         with allure.step('Check if notifier appeared or not'):
-            try:
-                main_page.find(main_page.locators.NOTIFY_LOCATOR)
-                self.logger.debug('Test done successfully!')
-            except TimeoutException:
-                self.logger.debug('Test failed! (no notifier appeared)')
-                raise
+            assert main_page.find(main_page.locators.NOTIFY_LOCATOR)
 
     @pytest.mark.UI
     @allure.description("""Test with wrong password""")
@@ -43,13 +38,8 @@ class TestLogin(BaseCase):
         main_page.login('login@mail.ru', 'password')
 
         with allure.step('Check if current url has error_code or not'):
-            try:
-                assert 'error_code' in self.driver.current_url and 'error_code=0' not in self.driver.current_url
-                self.logger.debug('Test done successfully!')
-            except AssertionError:
-                self.logger.debug('Test failed! (login and password were correct)')
-                raise
-            
+            assert 'error_code' in self.driver.current_url and 'error_code=0' not in self.driver.current_url
+
 
 class TestDashboard(BaseCase):
     @pytest.mark.UI
@@ -59,23 +49,13 @@ class TestDashboard(BaseCase):
     def test_create_campaign(self, dashboard_page: DashboardPage):
         self.logger.info('Start test_create_campaign')
         campaign_page: CampaignPage = dashboard_page.go_to_create_campaign()
-        campaign_name = str(time.time())
-        campaign_page.create_campaign(campaign_name)
 
-        dashboard_page.driver.get('https://target.my.com/dashboard')
-        dashboard_page.is_opened()
+        campaign_name = campaign_page.create_campaign()
 
-        with allure.step('Choose active campaigns'):
-            dashboard_page.click(dashboard_page.locators.SELECTMODULE_LOCATOR)
-            dashboard_page.click(dashboard_page.locators.SELECT_ACTIVE_LOCATOR)
+        dashboard_page.go_to_active_campaigns()
 
-        with  allure.step('Looking for created campaign'):
-            try:
-                dashboard_page.find((dashboard_page.locators.CAMPAIGN_LOCATOR_TEMPLATE[0], dashboard_page.locators.CAMPAIGN_LOCATOR_TEMPLATE[1].format(campaign_name)))
-                self.logger.info('Test done successfully!')
-            except TimeoutException:
-                self.logger.info('Test failed! (campaign was not created)')
-                raise
+        with allure.step('Looking for created campaign'):
+            assert dashboard_page.find((dashboard_page.locators.CAMPAIGN_LOCATOR_TEMPLATE[0], dashboard_page.locators.CAMPAIGN_LOCATOR_TEMPLATE[1].format(campaign_name)))
         
     @pytest.mark.UI
     @allure.description("""Create a new segment, and then check if it is created or not""")
@@ -84,18 +64,13 @@ class TestDashboard(BaseCase):
     def test_create_segment(self, dashboard_page: DashboardPage):
         self.logger.info('Start test_create_segment')
         segments_page: SegmentsPage = dashboard_page.go_to_segments_page()
-        segment_name = str(time.time())
-        segments_page.create_segment(segment_name)
+        
+        segment_name = segments_page.create_segment()
 
         segments_page.is_opened()
 
         with allure.step('Looking for created segment'):
-            try:
-                segments_page.find((segments_page.locators.SEGMENT_TITLE_LOCATOR_TEMPLATE[0], segments_page.locators.SEGMENT_TITLE_LOCATOR_TEMPLATE[1].format(segment_name)))
-                self.logger.info('Test done successfully!')
-            except TimeoutException:
-                self.logger.info('Test failed! (segment was not created)')
-                raise
+            assert segments_page.find((segments_page.locators.SEGMENT_TITLE_LOCATOR_TEMPLATE[0], segments_page.locators.SEGMENT_TITLE_LOCATOR_TEMPLATE[1].format(segment_name)))
     
     @pytest.mark.UI
     @allure.description("""Create a new segment, then delete it and check if it is deleted or not""")
@@ -104,23 +79,18 @@ class TestDashboard(BaseCase):
     def test_delete_segment(self, dashboard_page: DashboardPage):
         self.logger.info('Start test_delete_segment')
         segments_page: SegmentsPage = dashboard_page.go_to_segments_page()
-        segment_name = str(time.time())
 
-        segments_page.create_segment(segment_name)
+        segment_name = segments_page.create_segment()
 
         segments_page.delete_segment(segment_name)
 
-        segments_page.is_opened()
-
         with allure.step('Checking if segment deleted or not'):
-            #Wait for page to be refreshed
-            RETRY_COUNT = 10
+            segments_page.driver.refresh()
+            segments_page.is_opened()
+            #Eсли мы нашли удаленный сегмент, то тест провален, иначе - тест прошел.
             try:
-                while(RETRY_COUNT > 0):
-                    RETRY_COUNT -= 1
-                    segments_page.find((segments_page.locators.SEGMENT_TITLE_LOCATOR_TEMPLATE[0], segments_page.locators.SEGMENT_TITLE_LOCATOR_TEMPLATE[1].format(segment_name)))
-                    time.sleep(1)
-                self.logger.info('Test failed! (segment was not deleted)')
+                segments_page.find((segments_page.locators.SEGMENT_TITLE_LOCATOR_TEMPLATE[0], segments_page.locators.SEGMENT_TITLE_LOCATOR_TEMPLATE[1].format(segment_name)))
                 assert False
             except TimeoutException:
-                self.logger.info('Test done successfully!')
+                assert True
+                

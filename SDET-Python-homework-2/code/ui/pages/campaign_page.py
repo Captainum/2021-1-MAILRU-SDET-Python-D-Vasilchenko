@@ -20,7 +20,7 @@ class CampaignPage(BasePage):
     locators = CampaignPageLocators()
 
     @allure.step('Create a campaign')
-    def create_campaign(self, campaign_name):
+    def create_campaign(self, campaign_name=str(time.time())) -> str:
         logger.info(f'Creating a campaign with name={campaign_name}...')
         
         self.click((self.locators.GOAL_LOCATOR_TEMPLATE[0], self.locators.GOAL_LOCATOR_TEMPLATE[1].format('traffic')), 10)
@@ -53,6 +53,8 @@ class CampaignPage(BasePage):
         
         time.sleep(1)
         self.click(self.locators.CREATEBUTTON_LOCATOR)
+
+        return campaign_name
 
     @allure.step('Upload a picture {picture_name} to {locator}')
     def upload_picture(self, locator, picture_name):

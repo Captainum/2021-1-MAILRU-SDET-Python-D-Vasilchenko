@@ -15,7 +15,7 @@ class SegmentsPage(BasePage):
     locators = SegmentsPageLocators()
 
     @allure.step('Create a segment {segment_name}')
-    def create_segment(self, segment_name):
+    def create_segment(self, segment_name=str(time.time())) -> str:
         logger.info(f'Creating a segment with name={segment_name}...')
         
         try:
@@ -32,6 +32,8 @@ class SegmentsPage(BasePage):
         segment_name_input.send_keys(segment_name)
 
         self.click(self.locators.CREATESEGMENT_BUTTON_LOCATOR)
+
+        return segment_name
 
     @allure.step('Delete a segment {segment_name}')
     def delete_segment(self, segment_name):
