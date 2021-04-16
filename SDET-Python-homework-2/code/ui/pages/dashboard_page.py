@@ -39,3 +39,7 @@ class DashboardPage(BasePage):
 
         self.click(self.locators.SELECTMODULE_LOCATOR)
         self.click(self.locators.SELECT_ACTIVE_LOCATOR)
+    
+    @allure.step('Look for a campaign {campaign_name}')
+    def look_for_campaign(self, campaign_name):
+        return self.find((self.locators.CAMPAIGN_LOCATOR_TEMPLATE[0], self.locators.CAMPAIGN_LOCATOR_TEMPLATE[1].format(campaign_name)))

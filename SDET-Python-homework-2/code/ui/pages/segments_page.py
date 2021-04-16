@@ -44,3 +44,17 @@ class SegmentsPage(BasePage):
 
         self.click((self.locators.SEGMENT_REVERTBUTTON_LOCATOR_TEMPLATE[0], self.locators.SEGMENT_REVERTBUTTON_LOCATOR_TEMPLATE[1].format(segment_id)))
         self.click(self.locators.SEGMENT_CONFIRMBUTTON_LOCATOR)
+
+        with allure.step('Checking if segment deleted or not'):
+            self.driver.refresh()
+            self.is_opened()
+            #Eсли мы нашли удаленный сегмент, то тест провален, иначе - тест прошел.
+            try:
+                self.look_for_segment(segment_name)
+                assert False
+            except TimeoutException:
+                assert True
+    
+    @allure.step('Look for a segment {segment_name}')
+    def look_for_segment(self, segment_name):
+        return self.find((self.locators.SEGMENT_TITLE_LOCATOR_TEMPLATE[0], self.locators.SEGMENT_TITLE_LOCATOR_TEMPLATE[1].format(segment_name)))
