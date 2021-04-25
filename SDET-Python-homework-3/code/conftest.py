@@ -2,6 +2,7 @@ import pytest
 import os
 
 from api.client import ApiClient
+from utils.builder import Builder
 
 @pytest.fixture(scope='function')
 def api_client(config):
@@ -28,3 +29,7 @@ def credentials(config):
         password = f.readline().strip()
 
     return user, password
+
+@pytest.fixture(scope='function')
+def builder():
+    return Builder

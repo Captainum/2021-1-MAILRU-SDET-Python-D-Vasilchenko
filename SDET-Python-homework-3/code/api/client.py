@@ -65,7 +65,7 @@ class ApiClient:
         
         self.get_csrftoken()
 
-    def post_create_campaign(self, campaign_name=str(time.time())):
+    def post_create_campaign(self, campaign_name):
 
         pic1_id = self.post_picture('pic1.jpeg')
         pic2_id = self.post_picture('pic2.png')
@@ -134,7 +134,7 @@ class ApiClient:
         response = self._request('POST', location=location, headers=headers, files=files)
         return response['id']
 
-    def post_create_segment(self, segment_name=str(time.time())):
+    def post_create_segment(self, segment_name):
         location = '/api/v2/remarketing/segments.json?fields=id,name'
 
         headers = {}
