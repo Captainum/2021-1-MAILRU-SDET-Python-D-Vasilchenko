@@ -1,0 +1,136 @@
+{
+    "age_restrictions": null,
+    "autobidding_mode": "second_price_mean",
+    "banners": 
+        [{
+            "content": {
+                "icon_256x256": {
+                    "id": ""
+                },
+                "image_600x600_slide_1": {
+                    "id": ""
+                },
+                "image_600x600_slide_2": {
+                    "id": ""
+                },
+                "image_600x600_slide_3": {
+                    "id": ""
+                }
+            },
+            "name": "",
+            "textblocks": {
+                "cta_sites_full": {
+                    "text": "visitSite"
+                },
+                "text_50": {
+                    "text": "TEST"
+                },
+                "title_25": {
+                    "text": "TEST"
+                },
+                "title_25_slide_1": {
+                    "text": "TEST"
+                },
+                "title_25_slide_2": {
+                    "text": "TEST"
+                },
+                "title_25_slide_3": {
+                    "text": "TEST"
+                }
+            },
+            "urls": {
+                "header_click": {
+                    "id": 720381
+                },
+                "url_slide_1": {
+                    "id": 720381
+                },
+                "url_slide_2": {
+                    "id": 720381
+                },
+                "url_slide_3": {
+                    "id": 720381
+                }
+            }
+        }],
+    "budget_limit": null,
+    "budget_limit_day": null,
+    "conversion_funnel_id": null,
+    "date_end": null,
+    "date_start": null,
+    "enable_offline_goals": false,
+    "enable_utm": true,
+    "max_price": "0",
+    "mixing": "fastest",
+    "name": "",
+    "objective": "traffic",
+    "package_id": 814,
+    "price": "14.76",
+    "targetings": {
+        "age": {
+            "age_list": [
+                12
+            ],
+            "expand": false
+        },
+        "fulltime": {
+            "flags": [],
+            "fri": [
+                0
+            ],
+            "mon": [
+                0,
+                1
+            ],
+            "sat": [
+                0
+            ],
+            "sun": [
+                0
+            ],
+            "thu": [
+                0
+            ],
+            "tue": [
+                0
+            ],
+            "wed": [
+                0
+            ]
+        },
+        "geo": {
+            "regions": [
+                188
+            ]
+        },
+        "interests": [],
+        "interests_soc_dem": [],
+        "mobile_operators": [],
+        "mobile_types": [
+            "tablets",
+            "smartphones"
+        ],
+        "mobile_vendors": [],
+        "pads": [
+            102634,
+            102643
+        ],
+        "segments": [],
+        "sex": [
+            "male"
+        ],
+        "split_audience": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+        ]
+    },
+    "utm": null
+}
