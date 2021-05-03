@@ -22,13 +22,12 @@ class MainPageANDROID(MainPage):
         return self.find(self.locators.FACT_CARD_CONTENT_LOCATOR)
     
     def find_population_command(self):
-        for i in range(1000):
+        while True:
             element = self.find(self.locators.COMMANDS_LOCATOR)
             if element.text == 'численность населения россии':
                 self.click_for_android(self.locators.COMMANDS_LOCATOR)
                 return self.find(self.locators.FACT_CARD_TITLE_LOCATOR)
             self.swipe_element_lo_left(self.locators.COMMANDS_LOCATOR, 110)
-        assert False
     
     def change_news_source(self, source):
         self.click_for_android(self.locators.SETTINGS_LOCATOR)
@@ -42,6 +41,14 @@ class MainPageANDROID(MainPage):
 
         settings_page.click_for_android(settings_page.locators.CLOSE_SETTINGS_LOCATOR)
     
+    def check_news_source(self, source):
+        assert source in self.find(self.locators.ANSWER_LOCATOR).text
+        
+        # Небольшой костыль из-за разности написания 'Вести FM' и 'Вести ФМ'
+        if source == 'Вести FM':
+            source = 'Вести ФМ'
+        assert self.find((self.locators.NEWS_TITLE_LOCATOR[0], self.locators.NEWS_TITLE_LOCATOR[1].format(source)))
+
     def check_version(self):
         self.click_for_android(self.locators.SETTINGS_LOCATOR)
 

@@ -21,10 +21,9 @@ class TestMarussiaAndroid(BaseCase):
     @pytest.mark.AndroidUI
     def test_news(self):
         source = 'Вести FM'
-        self.main_page.change_news_source(source)
-        self.main_page.search('News')
-        assert source in self.main_page.find(self.main_page.locators.ANSWER_LOCATOR).text
-        assert self.main_page.find((self.main_page.locators.NEWS_TITLE_LOCATOR[0], self.main_page.locators.NEWS_TITLE_LOCATOR[1].format('Вести ФМ')))
+        self.main_page.change_news_source(source) # Настраиваем источник
+        self.main_page.search('News') # Выполняем поиск
+        self.main_page.check_news_source(source) # Проверяем источник
 
     @pytest.mark.AndroidUI
     def test_settings(self):
