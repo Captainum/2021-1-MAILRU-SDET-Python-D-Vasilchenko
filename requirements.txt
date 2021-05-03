@@ -6,3 +6,5 @@ webdriver-manager
 requests
 faker
 Appium-Python-Client
+argparse
+json

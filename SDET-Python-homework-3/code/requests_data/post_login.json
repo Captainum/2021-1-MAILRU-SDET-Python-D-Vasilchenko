@@ -1,0 +1,6 @@
+{
+    "email": "",
+    "password": "",
+    "continue": "https://target.my.com/auth/mycom?state=target_login%3D1%26ignore_opener%3D1#email",
+    "failure": "https://account.my.com/login/"
+}
