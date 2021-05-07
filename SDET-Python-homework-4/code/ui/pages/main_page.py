@@ -6,6 +6,10 @@ from ui.pages.settings_page import SettingsPageANDROID
 from ui.pages.news_sources_page import NewsSourcesPageANDROID
 from ui.pages.about_page import AboutPageANDROID
 
+class CommandNotFoundException(Exception):
+    pass
+
+
 class MainPage(BasePage):
     pass
 
@@ -21,14 +25,15 @@ class MainPageANDROID(MainPage):
     def find_fact_card(self):
         return self.find(self.locators.FACT_CARD_CONTENT_LOCATOR)
     
-    def find_population_command(self):
-        while True:
+    def find_population_command(self, swipes=10):
+        for i in range(swipes):
             element = self.find(self.locators.COMMANDS_LOCATOR)
-            if element.text == 'численность населения россии':
+            if element.text == 'население россии' or element.text == 'численность населения россии':
                 self.click_for_android(self.locators.COMMANDS_LOCATOR)
                 return self.find(self.locators.FACT_CARD_TITLE_LOCATOR)
             self.swipe_element_lo_left(self.locators.COMMANDS_LOCATOR, 110)
-    
+        raise CommandNotFoundException(f'Command not found with {swipes} swipes')
+
     def change_news_source(self, source):
         self.click_for_android(self.locators.SETTINGS_LOCATOR)
 
