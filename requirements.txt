@@ -8,3 +8,5 @@ faker
 Appium-Python-Client
 argparse
 json
+pymysql
+sqlalchemy
