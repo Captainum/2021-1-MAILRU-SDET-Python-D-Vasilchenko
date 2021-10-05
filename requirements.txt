@@ -9,4 +9,5 @@ Appium-Python-Client
 argparse
 json
 pymysql
+flask
 sqlalchemy
