@@ -1,0 +1,33 @@
+{
+    "chrome": {
+        "default": "90.0",
+        "versions": {
+            "90.0": {
+                "image": "selenoid/chrome:90.0",
+                "port": "4444",
+                "path": "/",
+                "env" : ["LANG=ru_RU.UTF-8", "LANGUAGE=ru:en", "LC_ALL=ru_RU.UTF-8"]
+            },
+            "90.0_vnc": {
+                "image": "selenoid/vnc_chrome:90.0",
+                "port": "4444",
+                "env" : ["LANG=ru_RU.UTF-8", "LANGUAGE=ru:en", "LC_ALL=ru_RU.UTF-8"]
+            }
+        }
+    },
+    "firefox": {
+        "default": "88.0",
+        "versions": {
+            "88.0": {
+                "image": "selenoid/firefox:88.0",
+                "port": "4444",
+                "env" : ["LANG=ru_RU.UTF-8", "LANGUAGE=ru:en", "LC_ALL=ru_RU.UTF-8"]
+            },
+            "88.0_vnc": {
+                "image": "selenoid/vnc_firefox:88.0",
+                "port": "4444",
+                "env" : ["LANG=ru_RU.UTF-8", "LANGUAGE=ru:en", "LC_ALL=ru_RU.UTF-8"]
+            }
+        }
+    }
+}
